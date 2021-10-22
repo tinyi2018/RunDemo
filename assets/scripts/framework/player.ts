@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, systemEvent, SystemEvent, RigidBody, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
 /**
@@ -24,7 +24,21 @@ export class Player extends Component {
     // serializableDummy = 0;
 
     start () {
+        systemEvent.on(SystemEvent.EventType.TOUCH_START, this.onTouchStar, this);
+        systemEvent.on(SystemEvent.EventType.TOUCH_END, this.onTouchEnd, this);
         // [3]
+    }
+
+    onTouchStar(){
+        
+        var rigid: RigidBody = this.node.getComponent(RigidBody);
+        rigid.setLinearVelocity(new Vec3(0,0,-2));
+
+
+    }    
+
+    onTouchEnd(){
+
     }
 
     // update (deltaTime: number) {
