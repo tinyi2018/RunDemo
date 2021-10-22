@@ -38,6 +38,7 @@ export class Player extends Component {
     }    
 
     onTouchEnd(){
+        console.log("on Touch End");
 
     }
 
