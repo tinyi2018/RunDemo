@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, systemEvent, SystemEvent, RigidBody, Vec3 } from 'cc';
+import { _decorator, Component, Node, systemEvent, SystemEvent, RigidBody, Vec3, EventKeyboard, KeyCode } from 'cc';
 const { ccclass, property } = _decorator;
 
 /**
@@ -22,17 +22,22 @@ export class Player extends Component {
     // [2]
     // @property
     // serializableDummy = 0;
+    private rigid: RigidBody = null;
+
 
     start () {
         systemEvent.on(SystemEvent.EventType.TOUCH_START, this.onTouchStar, this);
         systemEvent.on(SystemEvent.EventType.TOUCH_END, this.onTouchEnd, this);
+        systemEvent.on(SystemEvent.EventType.KEY_DOWN,this.onKeyDown, this);
+
+        this.rigid=this.node.getComponent(RigidBody);
         // [3]
     }
 
     onTouchStar(){
         
-        var rigid: RigidBody = this.node.getComponent(RigidBody);
-        rigid.setLinearVelocity(new Vec3(0,0,-2));
+      //  var rigid: RigidBody = this.node.getComponent(RigidBody);
+        this.rigid.setLinearVelocity(new Vec3(0,0,-2));
 
 
     }    
@@ -42,6 +47,43 @@ export class Player extends Component {
 
     }
 
+
+    onKeyDown(event:EventKeyboard){
+       // var rigid: RigidBody = this.node.getComponent(RigidBody);
+       // this.rigid.setLinearVelocity(new Vec3(0,0,-2));
+
+       // console.log("key Down");
+        switch(event.keyCode){
+            case KeyCode.KEY_W:    
+            this.rigid.setLinearVelocity(new Vec3(0,0,-2));
+            console.log(" Key w press");
+            break;
+
+            case KeyCode.KEY_A:
+            this.rigid.setLinearVelocity(new Vec3(-2,0,0));
+            console.log(" Key A press");
+            break;
+
+            case KeyCode.KEY_D:   
+            this.rigid.setLinearVelocity(new Vec3(2,0,0));
+            console.log(" Key D press");
+            break;
+
+            case KeyCode.KEY_S: 
+            this.rigid.setLinearVelocity(new Vec3(0,0,2));
+            console.log(" Key S press");
+            break;
+
+            default:
+                console.log(" Key Down switch default");
+                         
+
+
+        }
+        
+
+
+    }
     // update (deltaTime: number) {
     //     // [4]
     // }
