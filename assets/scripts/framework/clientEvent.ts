@@ -1,45 +1,81 @@
-
-import { _decorator, Component, Node, systemEvent } from 'cc';
+import { _decorator } from "cc";
 const { ccclass, property } = _decorator;
 
-/**
- * Predefined variables
- * Name = ClientEvent
- * DateTime = Fri Oct 22 2021 14:42:41 GMT+0800 (中国标准时间)
- * Author = tin_yi2018
- * FileBasename = clientEvent.ts
- * FileBasenameNoExtension = clientEvent
- * URL = db://assets/scripts/framework/clientEvent.ts
- * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
- *
- */
- 
-@ccclass('ClientEvent')
-export class ClientEvent extends Component {
-    // [1]
-    // dummy = '';
+@ccclass("clientEvent")
+export class clientEvent {
+    private static _handlers: { [key: string]: any[] } = {};
 
-    // [2]
-    // @property
-    // serializableDummy = 0;
+    /**
+     * 监听事件
+     * @param {string} eventName 事件名称
+     * @param {function} handler 监听函数
+     * @param {object} target 监听目标
+     */
+    public static on (eventName: string, handler: Function, target: any) {
+        var objHandler: {} = {handler: handler, target: target};
+        var handlerList: Array<any> = clientEvent._handlers[eventName];
+        if (!handlerList) {
+            handlerList = [];
+            clientEvent._handlers[eventName] = handlerList;
+        }
 
-    start () {
-        systemEvent.on()
-        // [3]
-    }
+        for (var i = 0; i < handlerList.length; i++) {
+            if (!handlerList[i]) {
+                handlerList[i] = objHandler;
+                return i;
+            }
+        }
 
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
+        handlerList.push(objHandler);
+
+        return handlerList.length;
+    };
+
+    /**
+     * 取消监听
+     * @param {string} eventName 监听事件
+     * @param {function} handler 监听函数
+     * @param {object} target 监听目标
+     */
+    public static off (eventName: string, handler: Function, target: any) {
+        var handlerList = clientEvent._handlers[eventName];
+
+        if (!handlerList) {
+            return;
+        }
+
+        for (var i = 0; i < handlerList.length; i++) {
+            var oldObj = handlerList[i];
+            if (oldObj.handler === handler && (!target || target === oldObj.target)) {
+                handlerList.splice(i, 1);
+                break;
+            }
+        }
+    };
+
+    /**
+     * 分发事件
+     * @param {string} eventName 分发事件名
+     * @param  {...any} params 分发事件参数
+     */
+    public static dispatchEvent (eventName: string, ...args: any) {
+        var handlerList = clientEvent._handlers[eventName];
+
+        var args1 = [];
+        var i;
+        for (i = 1; i < arguments.length; i++) {
+            args1.push(arguments[i]);
+        }
+
+        if (!handlerList) {
+            return;
+        }
+
+        for (i = 0; i < handlerList.length; i++) {
+            var objHandler = handlerList[i];
+            if (objHandler.handler) {
+                objHandler.handler.apply(objHandler.target, args1);
+            }
+        }
+    };
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
- */

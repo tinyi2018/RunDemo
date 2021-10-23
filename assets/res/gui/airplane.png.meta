@@ -1,0 +1,74 @@
+{
+  "ver": "1.0.21",
+  "importer": "image",
+  "imported": true,
+  "uuid": "32eeea14-89b6-4792-aeec-a9c16a27a513",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "32eeea14-89b6-4792-aeec-a9c16a27a513@6c48a",
+      "displayName": "airplane",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "32eeea14-89b6-4792-aeec-a9c16a27a513"
+      },
+      "ver": "1.0.21",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "32eeea14-89b6-4792-aeec-a9c16a27a513@f9941",
+      "displayName": "airplane",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -41.5,
+        "offsetY": 0.5,
+        "trimX": 2,
+        "trimY": 2,
+        "width": 937,
+        "height": 1019,
+        "rawWidth": 1024,
+        "rawHeight": 1024,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "32eeea14-89b6-4792-aeec-a9c16a27a513@6c48a",
+        "atlasUuid": ""
+      },
+      "ver": "1.0.9",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "sprite-frame",
+    "redirect": "32eeea14-89b6-4792-aeec-a9c16a27a513@f9941"
+  }
+}

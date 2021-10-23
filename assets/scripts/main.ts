@@ -2,6 +2,10 @@
 import { _decorator, Component, Node } from 'cc';
 const { ccclass, property } = _decorator;
 
+import { constant } from './framework/constant';
+import { clientEvent } from './framework/clientEvent';
+
+
 /**
  * Predefined variables
  * Name = Main
@@ -24,8 +28,13 @@ export class Main extends Component {
     // serializableDummy = 0;
 
     start () {
+        clientEvent.on(constant.EVENT_TYPE.KEY_EVENT_TEST, this.onKeyEventTest, this);
         // [3]
     }
+
+    onKeyEventTest(){
+        console.log("main: clientEvent call back action")    
+     }
 
     // update (deltaTime: number) {
     //     // [4]

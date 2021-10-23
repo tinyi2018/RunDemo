@@ -2,6 +2,9 @@
 import { _decorator, Component, Node, systemEvent, SystemEvent, RigidBody, Vec3, EventKeyboard, KeyCode } from 'cc';
 const { ccclass, property } = _decorator;
 
+import { constant } from './constant';
+import { clientEvent } from './clientEvent';
+
 /**
  * Predefined variables
  * Name = Player
@@ -29,15 +32,25 @@ export class Player extends Component {
         systemEvent.on(SystemEvent.EventType.TOUCH_START, this.onTouchStar, this);
         systemEvent.on(SystemEvent.EventType.TOUCH_END, this.onTouchEnd, this);
         systemEvent.on(SystemEvent.EventType.KEY_DOWN,this.onKeyDown, this);
+        clientEvent.on(constant.EVENT_TYPE.KEY_EVENT_TEST, this.onKeyEventTest, this);
 
         this.rigid=this.node.getComponent(RigidBody);
         // [3]
     }
 
+    onKeyEventTest(){
+       console.log("clientEvent: clientEvent call back action")    
+    }
+
+
     onTouchStar(){
         
       //  var rigid: RigidBody = this.node.getComponent(RigidBody);
         this.rigid.setLinearVelocity(new Vec3(0,0,-2));
+        console.log("on Touch Start");
+        console.log("before dispatchEvent")
+        clientEvent.dispatchEvent(constant.EVENT_TYPE.KEY_EVENT_TEST);
+        console.log("after dispatchEvent")
 
 
     }    
